@@ -1,0 +1,10 @@
+Contagem de Referências:
+    Cada objeto ou valor na memória possui um contador de referências. 
+    Quando uma variável referencia um objeto, o contador é incrementado. 
+    Quando a variável deixa de apontar para o objeto, o contador é decrementado.
+    Se o contador de um objeto chegar a zero (ou seja, nenhum código pode acessá-lo), 
+    o objeto se torna elegível para coleta.
+
+Marcação e Varredura (Mark-and-Sweep):
+    Este é o principal algoritmo de garbage collection em JavaScript.
+    Periodicamente, o garbage collector verifica todos os objetos que estão em uso (marcando-os como "alcançáveis"). Todos os objetos que não estão referenciados a partir de uma variável ativa são considerados "inalcançáveis" e são coletados, liberando espaço na memória.
