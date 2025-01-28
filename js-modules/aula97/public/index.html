@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Generate Passwords</title>
+    </head>
+    <body>
+      <section class="container">
+        <h1>Generate Passwords</h1>
+        <div class="password-result"></div>
+        <form action="" method="post" class="form-validate">
+          <div class="form-group">
+            <label for="length">Quantidade de caracteres</label>
+            <input type="number" id="length" class="form-input" min="4" max="32" value="12">
+          </div>
+
+          <div class="form-group">
+            <label for="numbers">Adicionar números</label>
+            <input type="checkbox" id="numbers" class="form-checkbox">
+          </div>
+
+          <div class="form-group">
+            <label for="uppercase">Letras maiúsculas</label>
+            <input type="checkbox" id="uppercase" class="form-checkbox">
+          </div>
+
+          <div class="form-group">
+            <label for="lowercase">Letras minúsculas</label>
+            <input type="checkbox" id="lowercase" class="form-checkbox">
+          </div>
+
+          <div class="form-group">
+            <label for="symbols">Adicionar símbolos</label>
+            <input type="checkbox" id="symbols" class="form-checkbox">
+          </div>
+
+        <button type="submit" class="form-button">Gerar Senha</button>
+      </form>
+    </section>
+    <script src="./assets/js/bundle.js"></script>
+  </body>
+</html>
