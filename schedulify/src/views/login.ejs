@@ -1,0 +1,64 @@
+<%- include('includes/head') %>    
+<%- include('includes/nav') %>    
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="row w-100">
+    <div class="col-lg-2"></div>
+    
+    <div class="col-lg-8 my-3">
+      <div class="card shadow-lg p-4 p-md-5"> <!-- Aumentei o padding em telas maiores -->
+        <h1 class="text-center mb-3 display-5 fw-bold">Agenda</h1> <!-- Título mais destacado -->
+        <p class="text-center lead text-muted mb-4">Manage your schedule with ease</p> <!-- Texto mais relevante -->
+
+        <div class="row">
+          <!-- Login -->
+          <div class="col-lg pe-lg-4 border-end"> <!-- Divisão vertical suave -->
+            <div class="mb-4">
+              <h4 class="mb-3 fw-semibold">Existing User</h4>
+              <form action="/login/signin" method="POST">
+                <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+                <div class="mb-3">
+                  <label class="form-label fw-medium">Email address</label>
+                  <input type="email" class="form-control form-control-lg" name="email" placeholder="Enter your email"> <!-- Inputs maiores -->
+                </div>
+                <div class="mb-4">
+                  <label class="form-label fw-medium">Password</label>
+                  <input type="password" class="form-control form-control-lg" name="password" placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-medium">Sign in</button> <!-- Botão mais largo -->
+              </form>
+            </div>
+          </div>
+
+          <!-- Signup -->
+          <div class="col-lg ps-lg-4"> <!-- Espaçamento consistente -->
+            <div class="mb-4">
+              <h4 class="mb-3 fw-semibold">New User</h4>
+              <form action="/login/register" method="POST">
+                <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+                <div class="mb-3">
+                  <label class="form-label fw-medium">Email address</label>
+                  <input type="email" class="form-control form-control-lg" name="email" placeholder="Enter your email">
+                </div>
+                <div class="mb-4">
+                  <label class="form-label fw-medium">Password</label>
+                  <input type="password" class="form-control form-control-lg" name="password" placeholder="Create a password">
+                </div>
+                <button type="submit" class="btn btn-success w-100 py-2 fw-medium">Create Account</button> <!-- Cor diferente para diferenciação -->
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-4"> <!-- Link adicional -->
+          <small class="text-muted">Forgot password? <a href="#" class="text-decoration-none">Reset here</a></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>    
