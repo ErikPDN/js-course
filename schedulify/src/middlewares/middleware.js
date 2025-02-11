@@ -1,5 +1,6 @@
 exports.middleware = (req, res, next) => {
-  res.locals.user = 'Variavel local global';
+  res.locals.errors = req.flash('errors');
+  res.locals.successes = req.flash('successes');
   next();
 };
 

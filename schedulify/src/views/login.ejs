@@ -9,13 +9,15 @@
       <div class="card shadow-lg p-4 p-md-5"> <!-- Aumentei o padding em telas maiores -->
         <h1 class="text-center mb-3 display-5 fw-bold">Agenda</h1> <!-- Título mais destacado -->
         <p class="text-center lead text-muted mb-4">Manage your schedule with ease</p> <!-- Texto mais relevante -->
+        
+        <%- include("includes/messages") %>
 
         <div class="row">
           <!-- Login -->
           <div class="col-lg pe-lg-4 border-end"> <!-- Divisão vertical suave -->
             <div class="mb-4">
               <h4 class="mb-3 fw-semibold">Existing User</h4>
-              <form action="/login/signin" method="POST">
+              <form action="/login/index" method="POST">
                 <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                 <div class="mb-3">
                   <label class="form-label fw-medium">Email address</label>
