@@ -1,0 +1,46 @@
+<%- include('includes/head') %>    
+<%- include('includes/nav') %>    
+
+<% if (user) { %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+      
+      <div class="col-lg-8, my-3">
+        <h1 class="text-center">Contacts</h1> 
+        <p class="text-center lead">Create or edit your Contacts</p>
+
+        <%- include('includes/messages') %>
+        <form action="/contact/create" method="POST">
+          <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+          <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-medium">Name</label>
+            <input  value="<%= contact.name %>" type="text" class="form-control" name="name" placeholder="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-medium">Last Name</label>
+            <input value="<%= contact.lastName %>" type="text" class="form-control" name="lastName" placeholder="">
+          </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-medium">Email address</label>
+            <input value="<%= contact.email %>" type="email" class="form-control form-control-lg" name="email" placeholder="">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-medium">Phone</label>
+            <input value="<%= contact.phone %>" type="tel" class="form-control form-control-lg" name="phone" placeholder="">
+          </div>
+          <button type="submit" class="btn btn-primary w-35 py-2 fw-medium">Create</button>
+        </form>
+      </div>
+      
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+<% } else { %>
+  <p>You must be logged in to see this content.</p>
+  <a href="/login/index">Go to login</a>
+<% } %>
+
+<%- include('includes/footer') %>    
