@@ -20,17 +20,31 @@ class Login {
     this.validate();
     if (this.errors.length > 0) return;
 
-    await this.verifyIfEmailAlreadyExists(this.body.email);
+    const userExists = await this.verifyIfEmailAlreadyExists(this.body.email);
 
-    if (this.errors.length > 0) return;
+    if (userExists) {
+      return this.errors.push('User already exists');
+    }
 
     const salt = bcrypt.genSaltSync();
     this.body.password = bcrypt.hashSync(this.body.password, salt);
 
-    try {
-      this.user = await LoginModel.create(this.body);
-    } catch (e) {
-      console.log(e);
+    this.user = await LoginModel.create(this.body);
+  }
+
+  async signin() {
+    this.validate();
+    if (this.errors.length > 0) return;
+
+    const user = await this.verifyIfEmailAlreadyExists(this.body.email);
+    const passwordMatch = await this.verifyPasswordMatch(this.body.email, this.body.password);
+
+    if (!user) {
+      return this.errors.push('Invalid email');
+    }
+
+    if (!passwordMatch) {
+      return this.errors.push('Invalid password');
     }
   }
 
@@ -61,10 +75,21 @@ class Login {
   }
 
   async verifyIfEmailAlreadyExists(email) {
-    const emailRes = await LoginModel.findOne({ email });
-    if (emailRes) {
-      this.errors.push('E-mail already exists');
+    const user = await LoginModel.findOne({ email });
+    if (user) {
+      this.user = user;
+      return true;
     }
+
+    return false;
+  }
+
+  async verifyPasswordMatch(email, password) {
+    const user = await LoginModel.findOne({ email });
+
+    if (!user) return false;
+
+    return bcrypt.compareSync(password, user.password);
   }
 }
 
