@@ -70,6 +70,15 @@ class Contact {
     return await ContactModel.findById(id);
   }
 
+  static async deleteById(id) {
+    if (!mongoose.Types.ObjectId.isValid(id)) return null;
+    return await ContactModel.findByIdAndDelete(id);
+  }
+
+  static async getContacts() {
+    return await ContactModel.find().sort({ createdAt: -1 });
+  }
+
 }
 
 module.exports = Contact;

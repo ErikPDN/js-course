@@ -13,18 +13,22 @@
         <%- include('includes/messages') %>
       </div>
       
-
+      <% if (contacts.length > 0) {  %>
       <div class="reponsive-table">
         <table class="table table-striped table-hover">
-          <tr>
-            <td>Erik</td>
-            <td>Pereira</td>
-            <td>56632245656</td>
-            <td>erik@gmail.com</td>
-          </tr>
+          <% contacts.forEach(contact => {  %>
+            <tr>
+              <td><%= contact.name %></td>
+              <td><%= contact.lastName %></td>
+              <td><%= contact.phone %></td>
+              <td><%= contact.email %></td>
+              <td><a href="/contact/index/<%= contact._id %>">Edit</a></td>
+              <td><a class="text-danger" href="/contact/delete/<%= contact._id %>">Delete</a></td>
+            </tr>
+          <% });  %>
         </table>
       </div>
-      
+      <% }  %>
 
       <div class="col-lg-2"></div>
     </div>

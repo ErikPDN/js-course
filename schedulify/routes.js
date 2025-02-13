@@ -21,6 +21,7 @@ route.get('/contact/index', authMiddleware, contactController.index);
 route.post('/contact/create', authMiddleware, contactController.create);
 route.get('/contact/index/:id', authMiddleware, contactController.editIndex);
 route.post('/contact/edit/:id', authMiddleware, contactController.edit);
+route.get('/contact/delete/:id', authMiddleware, contactController.delete);
 
 
 module.exports = route;

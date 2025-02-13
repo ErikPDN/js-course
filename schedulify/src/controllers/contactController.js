@@ -51,13 +51,28 @@ exports.edit = async function(req, res) {
     }
 
     req.flash('successes', 'Contact edited successfully');
-    req.session.save(() => res.redirect(`/contact/index/${contact.contact._id}`));
+    req.session.save(() => res.redirect(`/`));
   } catch (e) {
     console.error('Error editing contact:', e);
     res.render('404');
   }
 };
 
+exports.delete = async function(req, res) {
 
+  if (!req.params.id) return res.render('404');
+
+  try {
+    const contact = await Contact.deleteById(req.params.id);
+
+    if (!contact) return res.render('404');
+
+    req.flash('successes', 'Contact delete successfully');
+    req.session.save(() => res.redirect(`/`));
+  } catch (e) {
+    console.error('Error fetching contact:', e);
+    res.render('404');
+  }
+};
 
 
