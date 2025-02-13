@@ -17,7 +17,7 @@
           <div class="col-lg pe-lg-4 border-end"> <!-- Divisão vertical suave -->
             <div class="mb-4">
               <h4 class="mb-3 fw-semibold">Existing User</h4>
-              <form action="/login/signin" method="POST">
+              <form class="formLogin" action="/login/signin" method="POST">
                 <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                 <div class="mb-3">
                   <label class="form-label fw-medium">Email address</label>
@@ -36,7 +36,7 @@
           <div class="col-lg ps-lg-4"> <!-- Espaçamento consistente -->
             <div class="mb-4">
               <h4 class="mb-3 fw-semibold">New User</h4>
-              <form action="/login/register" method="POST">
+              <form class="formRegister" action="/login/register" method="POST">
                 <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                 <div class="mb-3">
                   <label class="form-label fw-medium">Email address</label>
