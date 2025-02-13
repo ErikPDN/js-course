@@ -58,10 +58,18 @@ class Contact {
     };
   }
 
+  async edit(id) {
+    if (typeof id !== 'string') return;
+    this.validate();
+    if (this.errors.length > 0) return;
+    this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
+  }
+
   static async getContactById(id) {
     if (!mongoose.Types.ObjectId.isValid(id)) return null;
     return await ContactModel.findById(id);
   }
+
 }
 
 module.exports = Contact;

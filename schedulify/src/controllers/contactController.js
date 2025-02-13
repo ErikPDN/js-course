@@ -37,3 +37,27 @@ exports.editIndex = async function(req, res) {
     res.render('404');
   }
 };
+
+exports.edit = async function(req, res) {
+  if (!req.params.id) return res.render('404');
+  try {
+    const contact = new Contact(req.body);
+    await contact.edit(req.params.id);
+
+    if (contact.errors.length > 0) {
+      req.flash('errors', contact.errors);
+      req.session.save(() => res.redirect(req.get('Referer') || '/contact/index'));
+      return;
+    }
+
+    req.flash('successes', 'Contact edited successfully');
+    req.session.save(() => res.redirect(`/contact/index/${contact.contact._id}`));
+  } catch (e) {
+    console.error('Error editing contact:', e);
+    res.render('404');
+  }
+};
+
+
+
+
