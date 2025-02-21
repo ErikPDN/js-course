@@ -5,7 +5,8 @@ class UserController {
   async create(req, res) {
     try {
       const newUser = await User.create(req.body);
-      return res.json(newUser);
+      const { id, name, email } = newUser;
+      return res.json({ id, name, email });
     } catch (e) {
       res.status(400).json({ errors: e.errors.map((err) => err.message) });
     }
@@ -13,7 +14,7 @@ class UserController {
 
   async index(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: { exclude: ['password_hash'] } });
       return res.json(users);
     } catch (e) {
       res.status(400).json({ errors: e.errors.map((err) => err.message) });
@@ -37,9 +38,11 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const { id } = req.params;
-      await User.destroy({ where: { id } });
-
+      const user = await User.findByPk(req.userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      await user.destroy();
       return res.status(200).json({ message: 'User deleted' });
     } catch (e) {
       res.status(400).json({ errors: e.errors?.map((err) => err.message) || "Error deleting user" });
@@ -48,10 +51,9 @@ class UserController {
 
   async update(req, res) {
     try {
-      const { id } = req.params;
       const { password, ...updatedData } = req.body;
 
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
@@ -65,8 +67,8 @@ class UserController {
 
       await user.update(updatedData);
 
-      const updatedUser = await User.findByPk(id);
-      return res.json(updatedUser);
+      const { id, email } = user;
+      return res.json({ id, email });
     } catch (e) {
       console.log(e);
       res.status(400).json({ errors: e.errors?.map((err) => err.message) || "Error updating user" });

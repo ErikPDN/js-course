@@ -4,10 +4,11 @@ import authMiddleware from '../middlewares/loginRequired';
 
 const router = new Router();
 
-router.post('/', authMiddleware, userController.create);
 router.get('/', authMiddleware, userController.index);
 router.get('/:id', authMiddleware, userController.show);
-router.delete('/:id', authMiddleware, userController.delete);
-router.put('/:id', authMiddleware, userController.update);
+
+router.post('/', userController.create);
+router.delete('/', authMiddleware, userController.delete);
+router.put('/', authMiddleware, userController.update);
 
 export default router;
