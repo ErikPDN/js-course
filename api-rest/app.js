@@ -1,7 +1,6 @@
 import express from 'express';
 import userRoutes from './src/routes/userRoutes';
-import tokenRoutes from './src/routes/tokenRoutes';
-import studentRoutes from './src/routes/studentRoutes';
+import tokenRoutes from './src/routes/tokenRoutes'; import studentRoutes from './src/routes/studentRoutes';
 
 import dotenv from 'dotenv';
 dotenv.config();
