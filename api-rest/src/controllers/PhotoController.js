@@ -1,6 +1,9 @@
 import multer from 'multer';
 import multerConfig from '../config/multer';
 
+import Photo from '../models/Photo';
+import Student from '../models/Student';
+
 const upload = multer(multerConfig).single('photo');
 
 class PhotoController {
@@ -8,15 +11,33 @@ class PhotoController {
     res.json({ message: 'Index' });
   }
 
-  async create(req, res) {
-    return upload(req, res, (err) => {
+  create(req, res) {
+    return upload(req, res, async (err) => {
       if (err) {
+        return res.status(400).json({ errors: [err.code] });
+      }
+
+      console.log('Uploaded file:', req.file);
+      if (!req.file) {
         return res.status(400).json({
-          errors: [err.code],
+          errors: ['File not provided or invalid file type.'],
         });
       }
 
-      return res.json(req.file);
+      const { originalname, filename } = req.file;
+      const { student_id } = req.body;
+      try {
+        const photo = await Photo.create({
+          original_name: originalname,
+          file_name: filename,
+          student_id
+        });
+        return res.json(photo);
+      } catch (e) {
+        return res.status(400).json({
+          errors: e.errors?.map((err) => err.message) || 'Error saving photo',
+        });
+      }
     });
   }
 }
