@@ -1,4 +1,5 @@
 import Student from "../models/Student";
+import Photo from "../models/Photo";
 
 class StudentController {
   async create(req, res) {
@@ -16,7 +17,12 @@ class StudentController {
   async index(req, res) {
     try {
       const students = await Student.findAll({
-        attributes: { exclude: ['created_at', 'updated_at'] }
+        attributes: { exclude: ['created_at', 'updated_at'] },
+        order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
+        include: {
+          model: Photo,
+          attributes: ['id', 'original_name', 'file_name'],
+        }
       });
 
       return res.json(students);
@@ -30,7 +36,14 @@ class StudentController {
   async show(req, res) {
     try {
       const { id } = req.params;
-      const student = await Student.findByPk(id);
+      const student = await Student.findByPk(id, {
+        attributes: { exclude: ['created_at', 'updated_at'] },
+        order: [[Photo, 'id', 'DESC']],
+        include: {
+          model: Photo,
+          attributes: ['id', 'original_name', 'file_name'],
+        }
+      });
 
       if (!student) {
         return res.status(400).json({ errors: 'Student not found' });

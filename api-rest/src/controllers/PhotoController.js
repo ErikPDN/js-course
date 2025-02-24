@@ -17,7 +17,6 @@ class PhotoController {
         return res.status(400).json({ errors: [err.code] });
       }
 
-      console.log('Uploaded file:', req.file);
       if (!req.file) {
         return res.status(400).json({
           errors: ['File not provided or invalid file type.'],
@@ -27,6 +26,14 @@ class PhotoController {
       const { originalname, filename } = req.file;
       const { student_id } = req.body;
       try {
+        const student = await Student.findByPk(student_id);
+
+        if (!student) {
+          return res.status(400).json({
+            errors: ['Student not found'],
+          });
+        }
+
         const photo = await Photo.create({
           original_name: originalname,
           file_name: filename,
