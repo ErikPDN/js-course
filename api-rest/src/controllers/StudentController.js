@@ -21,7 +21,7 @@ class StudentController {
         order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
         include: {
           model: Photo,
-          attributes: ['id', 'original_name', 'file_name'],
+          attributes: ['id', 'original_name', 'file_name', 'url'],
         }
       });
 
@@ -41,7 +41,7 @@ class StudentController {
         order: [[Photo, 'id', 'DESC']],
         include: {
           model: Photo,
-          attributes: ['id', 'original_name', 'file_name'],
+          attributes: ['id', 'url', 'original_name', 'file_name'],
         }
       });
 
