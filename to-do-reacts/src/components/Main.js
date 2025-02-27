@@ -12,10 +12,22 @@ class Main extends Component {
   state = {
     newTask: '',
     tasks: [
-      'Make coffee',
-      'Drink water',
-      'Study',
     ]
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.setState((prevState) => {
+      const newTask = prevState.newTask.trim();
+
+      if (!newTask || prevState.tasks.includes(newTask)) return null;
+
+      return {
+        tasks: [...prevState.tasks, newTask],
+        newTask: '',
+      };
+    });
   };
 
   handleChange = (e) => {
@@ -31,11 +43,11 @@ class Main extends Component {
       <div className='main'>
         <h1>TO-DO List</h1>
 
-        <form action="#" className="form">
+        <form onSubmit={this.handleSubmit} action="#" className="form">
           <input
             onChange={this.handleChange}
             type="text"
-            valie={newTask}
+            value={newTask}
           />
           <button type="submit"><FaPlus /></button>
         </form>
@@ -44,10 +56,10 @@ class Main extends Component {
           {tasks.map((task) => (
             <li key={task}>
               {task}
-              <div>
+              <span>
                 <FaEdit className="edit" />
                 <FaWindowClose className="delete" />
-              </div>
+              </span>
             </li>
 
           ))}
