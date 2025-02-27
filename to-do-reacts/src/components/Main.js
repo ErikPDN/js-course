@@ -30,6 +30,15 @@ class Main extends Component {
     });
   };
 
+  handleDelete = (e, index) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.filter((_, i) => i !== index),
+    }));
+  };
+
+  handleEdit = (e, index) => {
+  }
+
   handleChange = (e) => {
     this.setState({
       newTask: e.target.value,
@@ -53,12 +62,12 @@ class Main extends Component {
         </form>
 
         <ul className='tasks'>
-          {tasks.map((task) => (
+          {tasks.map((task, index) => (
             <li key={task}>
               {task}
               <span>
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit onClick={(e) => this.handleEdit(e, index)} className="edit" />
+                <FaWindowClose onClick={(e) => this.handleDelete(e, index)} className="delete" />
               </span>
             </li>
 
