@@ -1,13 +1,56 @@
 .main {
-  background-color: purple;
+  background: linear-gradient(135deg, #6a0dad, #8a2be2);
   padding: 30px;
   margin: 50px auto;
   max-width: 600px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
 .main h1 {
   font-size: 24px;
   text-align: center;
+  font-weight: bold;
+}
+
+.form {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form input[type="text"] {
+  height: 35px;
+  padding: 0 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  min-width: 75%;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.form input[type="text"]:focus {
+  box-shadow: 0 0 5px rgba(255, 71, 87, 0.5);
+}
+
+.form button[type="submit"] {
+  border: none;
+  height: 35px;
+  width: 45px;
+  background: #ff4757;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  margin-left: 10px;
+}
+
+.form button[type="submit"]:hover {
+  background: #e84118;
 }
