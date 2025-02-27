@@ -11,8 +11,8 @@ import './Main.css';
 class Main extends Component {
   state = {
     newTask: '',
-    tasks: [
-    ]
+    tasks: [],
+    editIndex: null,
   };
 
   handleSubmit = (e) => {
@@ -21,12 +21,26 @@ class Main extends Component {
     this.setState((prevState) => {
       const newTask = prevState.newTask.trim();
 
-      if (!newTask || prevState.tasks.includes(newTask)) return null;
+      if (!newTask) return null;
+
+      if (prevState.editIndex !== null) {
+        const updatedTasks = [...prevState.tasks];
+        updatedTasks[prevState.editIndex] = newTask;
+
+        return {
+          tasks: updatedTasks,
+          newTask: '',
+          editIndex: null,
+        };
+      }
+
+      if (prevState.tasks.includes(newTask)) return null;
 
       return {
         tasks: [...prevState.tasks, newTask],
         newTask: '',
       };
+
     });
   };
 
@@ -37,6 +51,10 @@ class Main extends Component {
   };
 
   handleEdit = (e, index) => {
+    this.setState({
+      newTask: this.state.tasks[index],
+      editIndex: index,
+    })
   }
 
   handleChange = (e) => {
