@@ -15,6 +15,23 @@ class Main extends Component {
     editIndex: null,
   };
 
+  componentDidMount() {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+
+    this.setState({
+      tasks: tasks || [],
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+
+    if (tasks !== prevState.tasks) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
