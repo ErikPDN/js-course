@@ -1,9 +1,15 @@
 import React from 'react';
 
+import Login from './pages/login';
+import GlobalStyle from './styles/global';
+
 function App() {
   return (
-    <h1>Hello world!</h1>
-  );
+    <>
+      < Login />
+      <GlobalStyle />
+    </>
+  )
 }
 
 export default App;
