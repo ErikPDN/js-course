@@ -5,7 +5,7 @@ import { primaryColor } from '../../config/color.js'
 export const Nav = styled.nav` 
   background: ${primaryColor};
   padding: 20px 0;
-  display: flex;
+  display: flex; 
   align-items: center;
   justify-content: center;
   
