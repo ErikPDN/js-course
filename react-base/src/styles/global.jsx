@@ -1,5 +1,6 @@
 import { createGlobalStyle, styled } from 'styled-components';
 import { primaryColor, primaryDarkColor } from '../config/color.js'
+import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   * {
@@ -36,6 +37,8 @@ export default createGlobalStyle`
   ul {
     list-style: none;
   }
+
+  
 `
 
 export const Container = styled.section`
