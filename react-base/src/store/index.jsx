@@ -1,15 +1,6 @@
 import { createStore } from 'redux';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return { ...state, login: true };
-    case 'LOGOUT':
-      return { ...state, login: false };
-    default:
-      return state;
-  }
-}
+import reducer from './modules/rootReducer';
 
 const store = createStore(reducer);
 
