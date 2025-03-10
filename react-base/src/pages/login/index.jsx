@@ -11,9 +11,8 @@ export default function Login() {
   function handleClick(e) {
     e.preventDefault();
 
-    dispatch(exampleActions.buttonClicked());
+    dispatch(exampleActions.buttonClickedRequest());
   }
-
 
   return (
     <Container>
