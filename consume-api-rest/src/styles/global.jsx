@@ -27,6 +27,11 @@ export default createGlobalStyle`
     color: #ffffff;
     padding: 10px 20px;
     font-weight: 700;
+    transition: all 300ms;
+  }
+
+  button:hover {
+    filter: brightness(100%);
   }
   
   a {
