@@ -1,6 +1,7 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
+import { isEmail } from 'validator';
 
 import axios from '../../../services/axios';
 import history from '../../../services/history';
@@ -22,11 +23,37 @@ function* loginRequest({ payload }) {
   }
 }
 
+function registerRequest({ payload }) {
+  if (!payload) return;
+
+  let formErrors = false;
+
+  if (payload.name.lenght < 3 || payload.name.lenght > 255) {
+    toast.error('Name must be between 3 and 255 characters');
+    formErrors = true;
+  }
+
+  if (!isEmail(payload.email)) {
+    toast.error('Invalid email');
+    formErrors = true;
+  }
+
+  if (!payload.id && (payload.password.lenght < 6 || payload.password.lenght > 50)) {
+    formErrors = true;
+    toast.error('Password must be between 6 and 50 characters');
+  }
+
+  if (formErrors) return;
+
+  console.log('payload', payload);
+}
+
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
   takeLatest(types.PERSIST_REHYDRATE, ({ payload }) => {
     const token = get(payload, 'auth.token', '');
     if (!token) return;
     axios.defaults.headers.Authorization = `Bearer ${token}`;
-  })
+  }),
+  takeLatest(types.REGISTER_REQUEST, registerRequest),
 ]); 
