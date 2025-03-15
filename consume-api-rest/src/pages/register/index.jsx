@@ -8,11 +8,13 @@ import { Form } from './styled.js';
 
 import axios from '../../services/axios';
 import history from '../../services/history';
+import Loading from '../../components/loading';
 
 export default function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -34,6 +36,8 @@ export default function Register() {
       toast.error('Password must be between 6 and 50 characters');
     }
 
+    setIsLoading(true);
+
     if (!formErrors) {
       try {
         await axios.post('/users', {
@@ -43,15 +47,18 @@ export default function Register() {
         });
         toast.success('Successfully registered');
         history.push('/login');
+        setIsLoading(false);
       } catch (err) {
         const errors = get(err, 'response.data.errors', []);
         errors.map(error => toast.error(error));
+        setIsLoading(false);
       }
     }
   }
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Register</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="name">

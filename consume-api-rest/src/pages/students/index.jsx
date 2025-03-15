@@ -7,13 +7,17 @@ import { Container } from '../../styles/global';
 import axios from '../../services/axios';
 import { ProfilePicture, StudentContainer } from './styled.js';
 
+import Loading from '../../components/loading';
+
 export default function Students() {
   const [students, setStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function getStudents() {
       const response = await axios.get('/students');
       setStudents(response.data);
+      setIsLoading(false);
     }
 
     getStudents();
@@ -21,6 +25,7 @@ export default function Students() {
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Students</h1>
 
       <StudentContainer>
