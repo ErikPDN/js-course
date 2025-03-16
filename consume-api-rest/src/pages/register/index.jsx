@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import { isEmail } from 'validator';
-import { get } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 
 
 import { Container } from '../../styles/global';
 import { Form } from './styled.js';
 
-import axios from '../../services/axios';
-import history from '../../services/history';
 import Loading from '../../components/loading';
 import * as actions from '../../store/modules/auth/actions';
 
