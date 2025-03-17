@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { FaUserCircle, FaEdit, FaWindowClose, FaExclamation } from 'react-icons/fa';
+import { FaUserCircle, FaEdit, FaWindowClose, FaExclamation, FaPlusSquare } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { Container } from '../../styles/global';
 import axios from '../../services/axios';
-import { ProfilePicture, StudentContainer } from './styled.js';
+import { ProfilePicture, StudentContainer, NewStudent } from './styled.js';
 
 import Loading from '../../components/loading';
 import { primaryColor } from '../../config/color';
@@ -64,6 +64,7 @@ export default function Students() {
     <Container>
       <Loading isLoading={isLoading} />
       <h1>Students</h1>
+      <NewStudent to="/student/">New Student <FaPlusSquare size={16} style={{ marginLeft: '10px' }} /></NewStudent>
 
       <StudentContainer>
         {students.map((student, index) => (
