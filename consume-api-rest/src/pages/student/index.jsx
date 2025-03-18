@@ -4,20 +4,22 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { isEmail, isInt, isFloat } from 'validator';
 import { useDispatch } from 'react-redux';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import { Container } from '../../styles/global';
-import { Form } from './styled';
+import { Form, ProfilePicture, Title } from './styled';
 import Loading from '../../components/loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
 import * as actions from '../../store/modules/auth/actions';
 
 export default function Student({ match }) {
-  const id = get(match, 'params.id', 0);
-  const [name, setName] = useState('');
+  const id = get(match, 'params.id', ''); const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
+  const [photo, setPhoto] = useState('');
   const [years_old, setYearsOld] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,6 +32,7 @@ export default function Student({ match }) {
         setIsLoading(true);
         const { data } = await axios.get(`/students/${id}`);
         const Photo = get(data, 'Photos[0].url', '');
+        setPhoto(Photo);
         setName(data.name);
         setEmail(data.email);
         setWeight(data.weight);
@@ -131,7 +134,20 @@ export default function Student({ match }) {
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <h1>{id ? 'Edit Student' : 'New Student'}</h1>
+      <Title>{id ? 'Edit Student' : 'New Student'}</Title>
+
+      {id && (
+        <ProfilePicture>
+          {photo ? (
+            <img src={photo} alt="Profile" crossOrigin="anonymous" />
+          ) : (
+            <FaUserCircle size={132} />
+          )}
+          <Link to={`/photos/${id}`}>
+            <FaEdit size={16} />
+          </Link>
+        </ProfilePicture>
+      )}
 
       <Form>
         <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Student name" />
