@@ -18,7 +18,6 @@ export const Redirect = () => {
       navigate('/');
     }
 
-
   }, [time, navigate]);
 
   return (
